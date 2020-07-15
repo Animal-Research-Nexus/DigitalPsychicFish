@@ -1,0 +1,190 @@
+@font-face {
+    font-family: "Futura LT W01 Book";
+    src: url("https://fast.fonts.net/dv2/14/8bf38806-3423-4080-b38f-d08542f7e4ac.woff2?d44f19a684109620e4841578af90e8189a625c51a89967cbe3110a13ce7e857b11cdd2fbb8047226d0d90fae987315622a711899c224a6517d124941f26fc2a28e0b76f209594a68ddd939bf877dfb9946060320a527b81fa2610c7110e4fe384dc7b22dcd2b02401a153a093be736a87f0fa23d67a5&projectId=c8586940-eb3a-40c8-8f7b-848e629b2d0b") format("woff2");
+}
+
+html { 
+    font-size:24px; 
+    font-family: "Futura LT W01 Book";
+}
+body  {
+    color:#ea502f;
+    text-align:center;
+}
+
+p {
+    color:#137f9a; 
+}
+
+#fish { 
+    transition: all 1s ease-in-out;
+    animation: slowbounce 5s infinite;
+    position: absolute; 
+    margin:0px auto; 
+    right:0; 
+    bottom:1%; 
+    left:0;
+}
+
+#water {
+    position: absolute; 
+    margin: 0px auto; 
+    bottom:16.5%; 
+    left:0px; 
+    right:0px; 
+    width: 150px; 
+    height:8%;
+    background:#ea502f;
+}
+
+
+.content {
+    border:7px solid #ea502f; 
+    border-top:none; 
+    padding:1em 2em 2em; 
+    margin-bottom:1em;
+}
+
+.reading {
+    background-color:#d5d5d5;
+    border-radius:10px;
+    border:7px solid #ea502f;
+    border-bottom:none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.available-readings {
+    padding:1rem;
+    border:7px solid #ea502f;
+    border-top:none;
+}
+
+
+.available-readings .list-group p { 
+    margin-bottom: 0.5rem;
+}
+
+.available-readings .list-group .active p { 
+    color:#fff;
+}
+
+.notflat {
+    padding: 2em;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+#message {
+    margin-top:2em;
+}
+
+.btn-orange {
+    color: #fff;
+    background-color: #ea502f;
+    border-color: #ea502f;
+}
+.btn-orange:hover {
+    color: #fff;
+    background-color: #b72b0e;
+    border-color: #b72b0e;
+}
+
+.table-active, .table-active > td, .table-active > th {
+    background-color: #ea502f;
+    border-color: #ea502f;
+    color:#fff;
+}
+
+@keyframes slowbounce {
+    0% {
+     bottom : 1%;
+    }
+    50% {
+        bottom: 5%;
+    }
+    100% {
+        bottom : 1%;
+    }
+  }
+
+@keyframes ripple {
+    from {
+        opacity: .8;
+        transform: scale3d(0.85,0.85,1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale3d(2,2,1);
+    }
+}
+
+.btn-orange {
+    position: relative;
+}
+
+.btn-orange:hover::after {
+    opacity: 0;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-direction: row;
+    -webkit-box-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+            align-items: center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0;
+    bottom: 0;
+    content: '';
+    height: 100%;
+    width: 100%;
+    border: 8px solid #ea502f;
+    border-radius: 100%;
+    -webkit-animation-name: ripple;
+            animation-name: ripple;
+    -webkit-animation-duration: 3s;
+            animation-duration: 3s;
+    -webkit-animation-delay: 0s;
+            animation-delay: 0s;
+    -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+    -webkit-animation-timing-function: cubic-bezier(0.65, 0, 0.34, 1);
+            animation-timing-function: cubic-bezier(0.65, 0, 0.34, 1);
+    z-index: -1;
+  }
+  .btn-orange:hover::before {
+    opacity: 0;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-direction: row;
+    -webkit-box-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+            align-items: center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0;
+    bottom: 0;
+    content: '';
+    height: 100%;
+    width: 100%;
+    border: 8px solid #ea502f;
+    border-radius: 100%;
+    -webkit-animation-name: ripple;
+            animation-name: ripple;
+    -webkit-animation-duration: 3s;
+            animation-duration: 3s;
+    -webkit-animation-delay: 0.5s;
+            animation-delay: 0.5s;
+    -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+    -webkit-animation-timing-function: cubic-bezier(0.65, 0, 0.34, 1);
+            animation-timing-function: cubic-bezier(0.65, 0, 0.34, 1);
+    z-index: -1;
+  }
