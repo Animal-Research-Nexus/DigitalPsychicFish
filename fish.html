@@ -23,6 +23,7 @@
 
     <div class="reading">
       <div id="message"><h2>Reading your mind ... </h2></div>
+      <div id="permissionRequired" style="display:none; z-index:3;"><button id="permissionRequiredButton" class="btn btn-orange">Get Reading</button></div>
       <div class="notflat" style="opacity:0;">Please place me on the flat on your hand</div>
       <div class="flat" id="reading-result"></div>
     </div>
@@ -76,22 +77,29 @@
 <script>
 
   var fish = new Fish('available-readings-list', 'reading-result', fishConfig);
-
   var gn = new GyroNorm();
-  var angle = 10;
+  
   if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-    // iOS 13+
-    DeviceOrientationEvent.requestPermission()
-    .then(response => {
-    if (response == 'granted') {
-      start();
-    }
-    })
-    .catch(console.error)
-
+    doPermissionRequest();
   } else {
     start();
   }
+
+  function doPermissionRequest() {
+    // iOS 13+
+    DeviceOrientationEvent.requestPermission()
+    .then(response => {
+      if (response == 'granted') {
+        start();
+      } else {
+        $('#permissionRequired').show();
+      }
+    }).catch(console.error);
+  }
+
+  const btn = document.getElementById( "permissionRequiredButton" );
+  btn.addEventListener( "click", doPermissionRequest );
+
 
   function start() {
 
