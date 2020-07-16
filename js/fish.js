@@ -39,7 +39,7 @@ var fishConfig = {
             'file': 'curls-up.gif',
         },
     ],
-    imagePath: '/images/fish',
+    imagePath: 'images/fish',
     tiltAngleThreshold: 15,
 };
 
