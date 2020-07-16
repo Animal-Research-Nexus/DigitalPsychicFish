@@ -9,44 +9,70 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/site.css">
     
-    <title>Fish</title>
+    <title>Psychic Fish Reading</title>
     <script src="js/gyronorm.complete.min.js"></script>
     <script src="js/fish.js"></script>
     
   </head>
   <body>
 
-    <div class="container">
+  <div class="container">
+    <div class="header" style="position:relative;">
+      <a href="/" title="Psychic Fish Homepage"><img class="img-fluid" style="margin-top:2em;" src="/images/psychic-fish-title-only.svg" alt="Psychic Fish Title"/></a>
+    </div>
+
+    <div class="reading">
       <div id="message"><h2>Reading your mind ... </h2></div>
-      <div class="reading">
-        <div class="notflat" style="display:none;">Please place me on the flat on your hand</div>
-        <div class="flat" id="reading-result" style="display:none;">
-        </div>
+      <div class="notflat" style="opacity:0;">Please place me on the flat on your hand</div>
+      <div class="flat" id="reading-result"></div>
+    </div>
+
+    <div class="available-readings">
+      <div class="flat">
+        <table class="table table-sm" style="opacity:0;">
+            <thead>
+              <tr>
+                <th>Movement</th>
+                <th aria-hidden="true"></th>
+                <th>Interpretation</th>
+              </tr>
+            </thead>
+            <tbody id="available-readings-list">
+            </tbody>
+        </table>
       </div>
 
-      <div class="available-readings">
-        <div class="flat">
-          <table class="table table-sm table-bordered">
-              <thead>
-                <tr>
-                  <th>Movement</th>
-                  <th>Interpretation</th>
-                </tr>
-              </thead>
-              <tbody id="available-readings-list">
-              </tbody>
-          </table>
-        </div>
-      </div>  
+      <hr/>
+
+      <p>Disclaimer: The psychic fish is an interactive encounter designed to get people to think about fish and their use in research. We will keep a record of your responses to our psychic fish, but this will be anonymous. There is a link at the end where you can find out more about our research and contact us.</p>
+
+      <p><a href="https://incidentallyb.typeform.com/to/nXb4ym7p" class="btn btn-orange">Dive deeper</a></p>
+
+    </div>  
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-6 col-md-4">
+        <a href="https://animalresearchnexus.org" target="_blank">
+          <img class="img-fluid" src="/images/AnNex_Logo_1200.png" title="Animal Research Nexus homepage"/>
+        </a>
+      </div>
+      <div class="col-6 col-md-4">
+      </div>
+      <div class="col-6 col-md-4">
+      </div>
     </div>
+  </div>
 
 
 <template id="item-template">
   <tr>
     <td>Head and Tail</td>
+    <td>&nbsp;</td>
     <td>You know fish</td>
   </tr>
 </template>
+
 <script>
 
   var fish = new Fish('available-readings-list', 'reading-result', fishConfig);
@@ -82,14 +108,16 @@
           $('#gamma').html(data.do.gamma);
           */
 
-          if (data.do.beta < angle && data.do.beta > (angle * -1) &&
-          data.do.gamma < angle && data.do.gamma > (angle * -1)
+          if (data.do.beta < fishConfig.tiltAngleThreshold && data.do.beta > (fishConfig.tiltAngleThreshold * -1) &&
+          data.do.gamma < fishConfig.tiltAngleThreshold && data.do.gamma > (fishConfig.tiltAngleThreshold * -1)
           ) {
-              $('.notflat').hide();
-              $('.flat').show();
+              $('.notflat').css('opacity', 0);
+              $('.flat img').css('opacity', 1);
+              $('.available-readings table').css('opacity', 1);
           } else { 
-              $('.notflat').show();
-              $('.flat').hide();
+              $('.notflat').css('opacity', 1);
+              $('.flat img').css('opacity', 0);
+              $('.available-readings table').css('opacity', 0);
           }
           // Process:
           // data.do.alpha	( deviceorientation event alpha value )
@@ -112,9 +140,9 @@
       }).catch(function(e){
           // Catch if the DeviceOrientation or DeviceMotion is not supported by the browser or device
           $('#message').html('');
-          $('.notflat').hide();
-          $('.flat').show();
-                  
+          $('.notflat').css('opacity', 0);
+          $('.flat img').css('opacity', 1);
+          $('.available-readings table').css('opacity', 1);
       });
   }
 </script>

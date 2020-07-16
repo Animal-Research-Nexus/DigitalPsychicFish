@@ -1,11 +1,11 @@
 @font-face {
-    font-family: "Futura LT W01 Book";
-    src: url("https://fast.fonts.net/dv2/14/8bf38806-3423-4080-b38f-d08542f7e4ac.woff2?d44f19a684109620e4841578af90e8189a625c51a89967cbe3110a13ce7e857b11cdd2fbb8047226d0d90fae987315622a711899c224a6517d124941f26fc2a28e0b76f209594a68ddd939bf877dfb9946060320a527b81fa2610c7110e4fe384dc7b22dcd2b02401a153a093be736a87f0fa23d67a5&projectId=c8586940-eb3a-40c8-8f7b-848e629b2d0b") format("woff2");
+    font-family: 'Futura LT W01 Book';
+    src: url('https://fast.fonts.net/dv2/14/8bf38806-3423-4080-b38f-d08542f7e4ac.woff2?d44f19a684109620e4841578af90e8189a625c51a89967cbe3110a13ce7e857b11cdd2fbb8047226d0d90fae987315622a711899c224a6517d124941f26fc2a28e0b76f209594a68ddd939bf877dfb9946060320a527b81fa2610c7110e4fe384dc7b22dcd2b02401a153a093be736a87f0fa23d67a5&projectId=c8586940-eb3a-40c8-8f7b-848e629b2d0b') format('woff2');
 }
 
 html { 
     font-size:24px; 
-    font-family: "Futura LT W01 Book";
+    font-family: 'Futura LT W01 Book';
 }
 body  {
     color:#ea502f;
@@ -29,14 +29,13 @@ p {
 #water {
     position: absolute; 
     margin: 0px auto; 
-    bottom:16.5%; 
+    bottom:10.5%; 
     left:0px; 
     right:0px; 
     width: 150px; 
     height:8%;
     background:#ea502f;
 }
-
 
 .content {
     border:7px solid #ea502f; 
@@ -52,29 +51,41 @@ p {
     border-bottom:none;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    position: relative;
+    
 }
+.reading img {
+    transition: opacity 1s ease-in-out;
+    opacity:0;
+}
+
 .available-readings {
     padding:1rem;
     border:7px solid #ea502f;
     border-top:none;
+    margin-bottom:1em;
 }
 
-
-.available-readings .list-group p { 
-    margin-bottom: 0.5rem;
-}
-
-.available-readings .list-group .active p { 
-    color:#fff;
+.available-readings table {
+    transition: opacity 1s ease-in-out;
 }
 
 .notflat {
     padding: 2em;
     font-size: 1.5rem;
     font-weight: bold;
+    position: absolute;
+    width:100%;
+    transition: opacity 1s ease-in-out;
+    opacity:0;
 }
 #message {
-    margin-top:2em;
+    padding:2em;
+    position: absolute;
+    left:0px;
+    width:100%;
+    transition: opacity 1s ease-in-out;
+    opacity:0;
 }
 
 .btn-orange {
@@ -94,15 +105,18 @@ p {
     color:#fff;
 }
 
+
 @keyframes slowbounce {
     0% {
      bottom : 1%;
     }
     50% {
         bottom: 5%;
+        transform: rotate(-4deg);
     }
     100% {
         bottom : 1%;
+        transform: rotate(0deg);
     }
   }
 
@@ -188,3 +202,16 @@ p {
             animation-timing-function: cubic-bezier(0.65, 0, 0.34, 1);
     z-index: -1;
   }
+
+
+@media (max-width:768px) {
+.available-readings table {
+font-size: 80%; 
+}
+}
+
+@media (max-width:576px) {
+html { 
+font-size:16px; 
+}
+}
