@@ -93,6 +93,7 @@
     DeviceOrientationEvent.requestPermission()
     .then(response => {
       if (response == 'granted') {
+        $('#permissionRequired').hide();
         start();
       } else {
         $('#permissionRequired').show();
