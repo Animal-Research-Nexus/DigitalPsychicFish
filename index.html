@@ -20,16 +20,22 @@
         <div id="water"></div>
       </div>
       <div class="content">
-        <h1>How do you feel about fish?</h1>
-        <p>We're asking this question because we think that the way
-        people feel about animals shapes how animal welfare
-        legislation is designed and implemented.</p>
+        <h1>Find out how you <em>really</em> feel about fish!</h1>
+        <p>The psychic fish is an interactive encounter that invites people to think
+          about fish and their use in research. All responses are anonymous. There is a link
+          at the end where you can find out more about our research and contact us</p>
         
-        <p>Our research focuses on the growing use of fish in animal
-        experiments in the UK, and the implications of this for
-        animal care and welfare. </p>
-        
-        <a href="fish.html" class="btn btn-orange">Get a psychic reading</a>
+
+        <div id="permissionExplanation" style="display:none; font-size:90%; text-align:left;" class="alert alert-warning" role="alert">
+          <p><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-lock" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M11.5 8h-7a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1zm-7-1a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-7zm0-3a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/>
+          </svg>
+          The fish needs access to your device gyro so it can perform readings<br/>
+          Push the button below to enable access</p>
+          <button class="btn btn-dark" id="get-permission">ENABLE</button>
+        </div>
+
+        <a href="fish.html" class="btn btn-orange" id="get-reading">Get a reading</a>
         
       </div>
     </div>
@@ -53,5 +59,35 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <script>
+      if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+        $('#permissionExplanation').show();
+        $('#get-reading').hide();
+      }
+
+      function doPermissionRequest(e) {
+        
+        e.preventDefault();
+
+        // iOS 13+
+        DeviceOrientationEvent.requestPermission()
+        .then(response => {
+          if (response == 'granted') {
+            window.location.href = 'fish.html';
+          } else {
+            window.location.href = 'fish.html';
+          }
+        }).catch((error) => {
+          window.location.href = 'fish.html';
+        });
+        
+        return false;
+      }
+
+      const btn = document.getElementById( "get-permission" );
+      btn.addEventListener( "click", doPermissionRequest );
+
+    </script>
   </body>
 </html>
