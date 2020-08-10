@@ -60,6 +60,19 @@ class Fish {
         /* <img class="img-fluid" src="images/fish/moving-head-and-tail.gif"></img> */
 
         let x = 0;
+
+        for (var animation of this.fishConfig.animations) {
+            if (animation.name=="Motionless") { 
+                // add default-fish image
+                var img = document.createElement('img');
+                img.classList.add('img-fluid');
+                img.classList.add('default-fish');
+                img.src = this.fishConfig.imagePath + '/' + animation.file;
+                img.alt = "Image of motionless fish";
+                document.getElementById(this.readingResult).appendChild(img);
+            }
+        }
+
         for (var animation of this.fishConfig.animations) {
 
             var listItem = template.content.cloneNode(true);
@@ -85,14 +98,39 @@ class Fish {
                 document.getElementById(this.readingResult).appendChild(img);
 
             } else { 
+                
+                listItem.querySelector('tr').classList.add('table-inactive');
                 elem.appendChild(listItem);
             }
             x++;
         }
     }
 
-    getReading() {
 
+    startReading() {
+        $('#message').html('<h2>To discover your true feelings, the AnNex Fish must swim freely through your mind</h2>');
+        // $('.notflat').css('opacity', 0);
+        // $('.flat img').css('opacity', 1);
+        // $('.available-readings table').css('opacity', 1);
+        var _self = this;
+        setTimeout(function() { _self.doProcess() }, 5000);
+    }
+    
+    doProcess() {
+        $('#message').addClass('hide');
+        $('#process').addClass('go');
+        var _self = this;
+        setTimeout(function() { _self.doReveal() }, 20000);
+    }
+
+    doReveal(){ 
+        $('.flat img.default-fish').remove();
+        $('.flat img').css('display', 'block');
+        $('.flat img').css('opacity', 1);
+        $('.available-readings').addClass('go');
+        $('.available-readings table').css('opacity', 1);
+        
+        $('#continue').show();
     }
 
 

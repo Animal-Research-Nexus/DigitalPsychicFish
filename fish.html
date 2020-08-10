@@ -24,9 +24,14 @@
     </div>
 
     <div class="reading">
-      <div id="message"><h2>Reading your mind ... </h2></div>
+      <div id="message"><h2>To discover your true feelings, the AnNex Fish must swim freely through your mind<br/><br/>To begin place your device flat on the palm of your hand</h2></div>
+      <div id="process">
+        <span id="process_1">Concentrate on the Fish</span>
+        <span id="process_2">Imagine how it might move</span>
+        <span id="process_3">Breathe deeply, concentrate</span>
+        <span id="process_4">Excellent - the AnNex Psychic Fish shall now reveal how you really feel about fish</span>
+      </div>
       <div id="permissionRequired" style="display:none; z-index:3;"><button id="permissionRequiredButton" class="btn btn-orange">Get Reading</button></div>
-      <div class="notflat" style="opacity:0;">Please place me flat on your hand</div>
       <div class="flat" id="reading-result"></div>
     </div>
 
@@ -45,9 +50,11 @@
         </table>
       </div>
 
-      <hr/>
+      <div id="continue">
+        <hr/>
 
-      <p><a href="https://incidentallyb.typeform.com/to/nXb4ym7p" class="btn btn-orange">Continue</a></p>
+        <p><a href="https://incidentallyb.typeform.com/to/nXb4ym7p" class="btn btn-orange">Continue</a></p>
+      </div>
 
     </div>  
   </div>
@@ -78,6 +85,11 @@
 
   var fish = new Fish('available-readings-list', 'reading-result', fishConfig);
   var gn = new GyroNorm();
+
+
+  var messages = {
+    'start': '',
+  }
   
   if (typeof DeviceOrientationEvent.requestPermission === 'function') {
     doPermissionRequest();
@@ -97,10 +109,7 @@
         // if we don't have permission, show a warning message and fall back to manual method
         $('#permissionRequired').hide();
         fish.init();
-        $('#message').html('');
-        $('.notflat').css('opacity', 0);
-        $('.flat img').css('opacity', 1);
-        $('.available-readings table').css('opacity', 1);
+        fish.startReading();
       }
     }).catch((error) => {
       $('#permissionRequired').show();
@@ -110,6 +119,8 @@
   const btn = document.getElementById( "permissionRequiredButton" );
   btn.addEventListener( "click", doPermissionRequest );
 
+  var inPosition = false;
+
   function start() {
 
     fish.init();
@@ -117,51 +128,27 @@
       gn.init().then(function(){
       gn.start(function(data){
 
-          $('#message').html('');
-
-          /*
-          $('#alpha').html(data.do.alpha);
-          $('#beta').html(data.do.beta);
-          $('#gamma').html(data.do.gamma);
-          */
-
           if (data.do.beta < fishConfig.tiltAngleThreshold && data.do.beta > (fishConfig.tiltAngleThreshold * -1) &&
           data.do.gamma < fishConfig.tiltAngleThreshold && data.do.gamma > (fishConfig.tiltAngleThreshold * -1)
           ) {
-              $('.notflat').css('opacity', 0);
-              $('.flat img').css('opacity', 1);
-              $('.available-readings table').css('opacity', 1);
-          } else { 
-              $('.notflat').css('opacity', 1);
-              $('.flat img').css('opacity', 0);
-              $('.available-readings table').css('opacity', 0);
-          }
-          // Process:
-          // data.do.alpha	( deviceorientation event alpha value )
-          // data.do.beta		( deviceorientation event beta value )
-          // data.do.gamma	( deviceorientation event gamma value )
-          // data.do.absolute	( deviceorientation event absolute value )
+            if (inPosition) 
+              return;
 
-          // data.dm.x		( devicemotion event acceleration x value )
-          // data.dm.y		( devicemotion event acceleration y value )
-          // data.dm.z		( devicemotion event acceleration z value )
+              $('#message').css('opacity', 0);
+              // once we're flat, stop tracking
+              inPosition = true;
+              gn.stop();
+              
+              setTimeout(function() { fish.doProcess() }, 500);
+          } 
 
-          // data.dm.gx		( devicemotion event accelerationIncludingGravity x value )
-          // data.dm.gy		( devicemotion event accelerationIncludingGravity y value )
-          // data.dm.gz		( devicemotion event accelerationIncludingGravity z value )
-
-          // data.dm.alpha	( devicemotion event rotationRate alpha value )
-          // data.dm.beta		( devicemotion event rotationRate beta value )
-          // data.dm.gamma	( devicemotion event rotationRate gamma value )
       });
       }).catch(function(e){
           // Catch if the DeviceOrientation or DeviceMotion is not supported by the browser or device
-          $('#message').html('');
-          $('.notflat').css('opacity', 0);
-          $('.flat img').css('opacity', 1);
-          $('.available-readings table').css('opacity', 1);
+          fish.startReading();
       });
   }
+
 </script>
 
   <!-- Optional JavaScript -->

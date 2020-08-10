@@ -57,6 +57,13 @@ p {
 .reading img {
     transition: opacity 1s ease-in-out;
     opacity:0;
+    display:none;
+    margin-top: 5rem;
+}
+.reading img.default-fish {
+    transition: opacity 1s ease-in-out;
+    opacity:1;
+    display:block;
 }
 
 .available-readings {
@@ -64,6 +71,11 @@ p {
     border:7px solid #ea502f;
     border-top:none;
     margin-bottom:1em;
+    background-color:#D5D5D5;
+    transition: background-color 1s ease-in-out;
+}
+.available-readings.go {
+    background-color:#fff;
 }
 
 .available-readings table {
@@ -85,8 +97,65 @@ p {
     left:0px;
     width:100%;
     transition: opacity 1s ease-in-out;
-    opacity:0;
+    opacity:1;
 } 
+
+#message.hide {
+    opacity:0;
+}
+
+#process {
+    padding:2em 0px;
+    position: absolute;
+    left:0px;
+    width:100%;
+    opacity:0;
+    font-size: 2rem;
+} 
+#process.go {
+    opacity: 1;
+} 
+
+#process_1 {
+    opacity: 0;
+} 
+#process_2 {
+    opacity: 0;
+} 
+#process_3 {
+    opacity: 0;
+} 
+#process_4 {
+    opacity: 0;
+} 
+
+#process.go #process_1,
+#process.go #process_2,
+#process.go #process_3,
+#process.go #process_4 {
+    display:block; 
+    position:absolute;
+    width:100%;
+    text-align: center;
+    animation-name: textopacity;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+}
+#process.go #process_2 { 
+    animation-delay: 5s;
+}
+#process.go #process_3 { 
+    animation-delay: 10s;
+}
+#process.go #process_4 { 
+    animation-delay: 15s;
+}
+
+#continue {
+    display:none;
+}
 
 #permissionRequired {
     padding:2em;
@@ -106,10 +175,20 @@ p {
     border-color: #b72b0e;
 }
 
+
+tr.table-inactive {
+    display:none;
+}
+
+tr.table-active {
+    display:table-row;
+}
+
 .table-active, .table-active > td, .table-active > th {
     background-color: #ea502f;
     border-color: #ea502f;
     color:#fff;
+    
 }
 
 
@@ -138,6 +217,34 @@ p {
         transform: scale3d(2,2,1);
     }
 }
+
+@keyframes textopacity {
+    0% {
+        opacity:0
+       }
+    20% {
+        opacity:1
+    }
+    30% {
+        opacity:0.9
+    }
+    40% {
+        opacity:1
+    }    
+    50% {
+        opacity:0.9
+    }    
+    60% {
+        opacity:1
+    }    
+    70% {
+        opacity:0.9
+    }
+    90% {
+        opacity:0
+    }
+}
+
 
 .btn-orange {
     position: relative;
@@ -210,15 +317,48 @@ p {
     z-index: -1;
   }
 
+  @media (max-width:992px) {
+
+    #process,
+    #message h2 {
+        font-size:1.5rem;
+    }
+    .reading img {
+        margin-top:9em;
+    }
+    #process,
+    #message h2 {
+        font-size:1.5rem;
+    }
+}
 
 @media (max-width:768px) {
-.available-readings table {
-font-size: 80%; 
-}
+    .available-readings table {
+    font-size: 80%; 
+    }
+
+    #process,
+    #message h2 {
+        font-size:1.5rem;
+    }
+    .reading img {
+        margin-top:9em;
+    }
+    #process,
+    #message h2 {
+        font-size:1.5rem;
+    }
 }
 
 @media (max-width:576px) {
-html { 
-font-size:16px; 
-}
+    html { 
+    font-size:16px; 
+    }
+    .reading img {
+        margin-top:10em;
+    }
+    #process,
+    #message h2 {
+        font-size:1.2rem;
+    }
 }
