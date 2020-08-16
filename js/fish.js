@@ -57,8 +57,6 @@ class Fish {
         this.choice = Math.floor(Math.random() * this.fishConfig.animations.length);
         var template = document.querySelector('#item-template');
 
-        /* <img class="img-fluid" src="images/fish/moving-head-and-tail.gif"></img> */
-
         let x = 0;
 
         for (var animation of this.fishConfig.animations) {
@@ -109,27 +107,31 @@ class Fish {
 
     startReading() {
         $('#message').html('<h2>To discover your true feelings, the AnNex Fish must swim freely through your mind</h2>');
-        // $('.notflat').css('opacity', 0);
-        // $('.flat img').css('opacity', 1);
-        // $('.available-readings table').css('opacity', 1);
         var _self = this;
         setTimeout(function() { _self.doProcess() }, 5000);
     }
     
     doProcess() {
         $('#message').addClass('hide');
-        $('#process').addClass('go');
+        setTimeout(function() {$('#process').addClass('go'); }, 1000);
         var _self = this;
-        setTimeout(function() { _self.doReveal() }, 20000);
+        setTimeout(function() { _self.doReveal() }, 21000);
     }
 
     doReveal(){ 
         $('.flat img.default-fish').remove();
         $('.flat img').css('display', 'block');
         $('.flat img').css('opacity', 1);
-        $('.available-readings').addClass('go');
-        $('.available-readings table').css('opacity', 1);
         
+        setTimeout(function() {
+            $('.available-readings').addClass('go');
+            $('.available-readings table').css('opacity', 0.01);
+         }, 1000);
+
+         setTimeout(function() {
+            $('.available-readings table').css('opacity', 1);
+         }, 2000);
+         
         $('#continue').show();
     }
 
